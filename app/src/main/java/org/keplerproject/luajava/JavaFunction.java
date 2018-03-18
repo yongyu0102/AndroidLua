@@ -24,6 +24,7 @@
 
 package org.keplerproject.luajava;
 
+
 /**
  * JavaFunction is a class that can be used to implement a Lua function in Java.
  * JavaFunction is an abstract class, so in order to use it you must extend this

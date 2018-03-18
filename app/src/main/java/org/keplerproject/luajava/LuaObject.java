@@ -24,6 +24,7 @@
 
 package org.keplerproject.luajava;
 
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.StringTokenizer;
@@ -40,14 +41,14 @@ import java.util.StringTokenizer;
  * </ul>
  * The LuaObject will represent only the object itself, not a variable or a stack index, so when you change a string,
  * remember that strings are immutable objects in Lua, and the LuaObject you have will represent the old one.
- *
+ * 
  * <h2>Proxies</h2>
- *
+ * 
  * LuaJava allows you to implement a class in Lua, like said before. If you want to create this proxy from Java, you
  * should have a LuaObject representing the table that has the functions that implement the interface. From this
  * LuaObject you can call the <code>createProxy(String implements)</code>. This method receives the string with the
  * name of the interfaces implemented by the object separated by comma.
- *
+ * 
  * @author Rizzato
  * @author Thiago Ponte
  */
@@ -59,7 +60,7 @@ public class LuaObject
 
 	/**
 	 * Creates a reference to an object in the variable globalName
-	 *
+	 * 
 	 * @param L
 	 * @param globalName
 	 */
@@ -76,7 +77,7 @@ public class LuaObject
 
 	/**
 	 * Creates a reference to an object inside another object
-	 *
+	 * 
 	 * @param parent
 	 *            The Lua Table or Userdata that contains the Field.
 	 * @param name
@@ -104,7 +105,7 @@ public class LuaObject
 
 	/**
 	 * This constructor creates a LuaObject from a table that is indexed by a number.
-	 *
+	 * 
 	 * @param parent
 	 *            The Lua Table or Userdata that contains the Field.
 	 * @param name
@@ -131,7 +132,7 @@ public class LuaObject
 
 	/**
 	 * This constructor creates a LuaObject from a table that is indexed by a LuaObject.
-	 *
+	 * 
 	 * @param parent
 	 *            The Lua Table or Userdata that contains the Field.
 	 * @param name
@@ -161,7 +162,7 @@ public class LuaObject
 
 	/**
 	 * Creates a reference to an object in the given index of the stack
-	 *
+	 * 
 	 * @param L
 	 * @param index
 	 *            of the object on the lua stack
@@ -186,7 +187,7 @@ public class LuaObject
 
 	/**
 	 * Creates the reference to the object in the registry table
-	 *
+	 * 
 	 * @param index
 	 *            of the object on the lua stack
 	 */
@@ -195,7 +196,7 @@ public class LuaObject
 		synchronized (L)
 		{
 			L.pushValue(index);
-			int key = L.Lref(LuaState.LUA_REGISTRYINDEX);
+			int key = L.Lref(LuaState.LUA_REGISTRYINDEX.intValue());
 			ref = new Integer(key);
 		}
 	}
@@ -207,7 +208,7 @@ public class LuaObject
 			synchronized (L)
 			{
 				if (L.getCPtrPeer() != 0)
-					L.LunRef(LuaState.LUA_REGISTRYINDEX, ref.intValue());
+					L.LunRef(LuaState.LUA_REGISTRYINDEX.intValue(), ref.intValue());
 			}
 		}
 		catch (Exception e)
@@ -221,7 +222,7 @@ public class LuaObject
 	 */
 	public void push()
 	{
-		L.rawGetI(LuaState.LUA_REGISTRYINDEX, ref.intValue());
+		L.rawGetI(LuaState.LUA_REGISTRYINDEX.intValue(), ref.intValue());
 	}
 
 	public boolean isNil()
@@ -389,7 +390,7 @@ public class LuaObject
 
 	/**
 	 * Calls the object represented by <code>this</code> using Lua function pcall.
-	 *
+	 * 
 	 * @param args -
 	 *            Call arguments
 	 * @param nres -
@@ -432,15 +433,15 @@ public class LuaObject
 				else
 					str = "";
 
-				if (err == LuaState.LUA_ERRRUN)
+				if (err == LuaState.LUA_ERRRUN.intValue())
 				{
 					str = "Runtime error. " + str;
 				}
-				else if (err == LuaState.LUA_ERRMEM)
+				else if (err == LuaState.LUA_ERRMEM.intValue())
 				{
 					str = "Memory allocation error. " + str;
 				}
-				else if (err == LuaState.LUA_ERRERR)
+				else if (err == LuaState.LUA_ERRERR.intValue())
 				{
 					str = "Error while running the error handler function. " + str;
 				}
@@ -452,15 +453,13 @@ public class LuaObject
 				throw new LuaException(str);
 			}
 
-			if (nres == LuaState.LUA_MULTRET)
+			if (nres == LuaState.LUA_MULTRET.intValue())
 				nres = L.getTop() - top;
 			if (L.getTop() - top < nres)
 			{
 				throw new LuaException("Invalid Number of Results .");
 			}
-
 			Object[] res = new Object[nres];
-
 			for (int i = nres; i > 0; i--)
 			{
 				res[i - 1] = L.toJavaObject(-1);
@@ -472,7 +471,7 @@ public class LuaObject
 
 	/**
 	 * Calls the object represented by <code>this</code> using Lua function pcall. Returns 1 object
-	 *
+	 * 
 	 * @param args -
 	 *            Call arguments
 	 * @return Object - Returned Object
@@ -519,7 +518,7 @@ public class LuaObject
 
 	/**
 	 * Function that creates a java proxy to the object represented by <code>this</code>
-	 *
+	 * 
 	 * @param implem
 	 *            Interfaces that are implemented, separated by <code>,</code>
 	 */
