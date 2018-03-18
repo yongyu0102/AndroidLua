@@ -1,8 +1,10 @@
-package com.example.zhangpeng.androidlua;
+package com.example.zhangpeng.androidlua.UI;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.zhangpeng.androidlua.R;
 
 import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
