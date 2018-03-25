@@ -25,7 +25,7 @@
 package org.keplerproject.luajava;
 
 /**
- * LuaJava exception
+ * LuaJavaHelper exception
  *
  * @author Thiago Ponte
  */

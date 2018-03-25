@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 
 /**
  * Class that implements the InvocationHandler interface.
- * This class is used in the LuaJava's proxy system.
+ * This class is used in the LuaJavaHelper's proxy system.
  * When a proxy object is accessed, the method invoked is
  * called from Lua
  *

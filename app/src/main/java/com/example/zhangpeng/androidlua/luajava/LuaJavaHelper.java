@@ -1,40 +1,41 @@
 package com.example.zhangpeng.androidlua.luajava;
 
+import android.util.Log;
+
+import com.example.zhangpeng.androidlua.MainApplication;
+
 import org.keplerproject.luajava.LuaState;
 import org.keplerproject.luajava.LuaStateFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * good
  * Created by zhangpeng on 2018/3/18.
  */
 
-public class LuaJava {
+public class LuaJavaHelper {
 
     private  LuaState luaState;
 
-    private static final class  LuaJavaHolder{
-        private static  LuaJava LUA_JAVA=new LuaJava();
-    }
 
-    private LuaJava(){
+    public LuaJavaHelper(){
         luaState=LuaStateFactory.newLuaState();
         luaState.openLibs();
     }
 
-
-    public static LuaJava getLuaJavaInstance(){
-        return LuaJavaHolder.LUA_JAVA;
+    public LuaState getLuaState(){
+        return luaState;
     }
 
-    public  LuaState getLuaState(){
-        return  luaState;
-    }
 
     public void closeLua(){
         if (luaState != null && !luaState.isClosed()) {
             //只能在退出应用时才调用
             luaState.close();
-            LuaJavaHolder.LUA_JAVA=null;
+          luaState=null;
         }
     }
 

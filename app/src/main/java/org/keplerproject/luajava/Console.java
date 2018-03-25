@@ -28,9 +28,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * Simple LuaJava console.
- * This is also an example on how to use the Java side of LuaJava and how to startup
- * a LuaJava application.
+ * Simple LuaJavaHelper console.
+ * This is also an example on how to use the Java side of LuaJavaHelper and how to startup
+ * a LuaJavaHelper application.
  *
  * @author Thiago Ponte
  */

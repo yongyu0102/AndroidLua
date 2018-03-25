@@ -25,7 +25,7 @@
 package org.keplerproject.luajava;
 
 /**
- * LuaState if the main class of LuaJava for the Java developer.
+ * LuaState if the main class of LuaJavaHelper for the Java developer.
  * LuaState is a mapping of most of Lua's C API functions.
  * LuaState also provides many other functions that will be used to manipulate
  * objects between Lua and Java.
@@ -74,7 +74,7 @@ public class LuaState {
   private int stateId;
 
   /**
-   * Constructor to instance a new LuaState and initialize it with LuaJava's functions
+   * Constructor to instance a new LuaState and initialize it with LuaJavaHelper's functions
    *
    * @param stateId
    */

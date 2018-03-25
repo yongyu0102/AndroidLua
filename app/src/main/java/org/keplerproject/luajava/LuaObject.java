@@ -43,7 +43,7 @@ import java.util.StringTokenizer;
  *
  * <h2>Proxies</h2>
  *
- * LuaJava allows you to implement a class in Lua, like said before. If you want to create this proxy from Java, you
+ * LuaJavaHelper allows you to implement a class in Lua, like said before. If you want to create this proxy from Java, you
  * should have a LuaObject representing the table that has the functions that implement the interface. From this
  * LuaObject you can call the <code>createProxy(String implements)</code>. This method receives the string with the
  * name of the interfaces implemented by the object separated by comma.

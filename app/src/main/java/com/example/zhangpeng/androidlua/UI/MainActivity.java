@@ -1,42 +1,81 @@
 package com.example.zhangpeng.androidlua.UI;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.zhangpeng.androidlua.R;
+import com.example.zhangpeng.androidlua.UI.recyclerview.RecyclerViewActivity;
+import com.example.zhangpeng.androidlua.luajava.LuaJavaHelper;
 
-import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
-import org.keplerproject.luajava.LuaStateFactory;
 
-public class MainActivity extends AppCompatActivity {
-    private LuaState mLuaState;//Lua解析和执行由此对象完成
+public class MainActivity extends BaseActivity implements View.OnClickListener{
+    private LuaState mLuaState;
+    private LuaJavaHelper luaJavaHelper;
+    private Button btnCreateView;
+    private Button btnRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         initLua();
+    }
+
+    @Override
+    int getContentViewId() {
+        return (R.layout.activity_main);
+    }
+
+
+    private void initLua() {
+         luaJavaHelper = new LuaJavaHelper();
+         mLuaState=luaJavaHelper.getLuaState();
+        LuaUtil.doStringFromAssets("main_activity.lua",mLuaState);
+    }
+
+    protected void initView(){
+        btnCreateView = (Button) findViewById(R.id.btn_create_view);
+        btnRecyclerView = (Button) findViewById(R.id.btn_recyclerView);
+    }
+
+    protected void initListener(){
+        btnCreateView.setOnClickListener(this);
+        btnRecyclerView.setOnClickListener(this);
     }
 
 
 
-
-    /**
-     * 只是在第一次调用，如果升级脚本也不需要重复初始化
-     */
-    private void initLua(){
-        mLuaState = LuaStateFactory.newLuaState();
-        mLuaState.openLibs();
-        //为了lua能使用系统日志，传入Log
-        try {
-            //push一个对象到对象到栈中
-            mLuaState.pushObjectValue(Log.class);
-            //设置为全局变量
-            mLuaState.setGlobal("Log");
-        } catch (LuaException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_create_view :
+                startCreateViewActivity();
+                break;
+            case R.id.btn_recyclerView :
+                startRecyclerVIewActivity();
+                break;
         }
+    }
+
+    private void startRecyclerVIewActivity() {
+        Intent intent=new Intent(MainActivity.this,RecyclerViewActivity.class);
+        startActivity(intent);
+    }
+
+    private void startCreateViewActivity() {
+        // 获取 lua startCreateViewActivity 函数
+        mLuaState.getGlobal("startCreateViewActivity");
+        //将 MainActivity.this 对象压栈
+        mLuaState.pushJavaObject(this);
+        // 调用 lua startCreateViewActivity 函数 ，并传入一个参数，返回值 0 个
+        mLuaState.call(1, 0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        luaJavaHelper.closeLua();
     }
 }
