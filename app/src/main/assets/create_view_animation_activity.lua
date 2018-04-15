@@ -13,6 +13,7 @@ function createTextViewByLua(context,layout,des,color)
 end
 
 function startAnimation(animationView)
+    --bindClass 接受一个class类. 然后返回一个对象可以访问该对象的静态知道和该类的方法
     ObjectAnimator = luajava.bindClass("com.example.zhangpeng.androidlua.ObjectAnimator")
     local animator = ObjectAnimator:ofFloat(animationView, "rotation",0,360)
     animator:setDuration(1000)

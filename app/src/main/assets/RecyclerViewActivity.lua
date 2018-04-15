@@ -7,9 +7,13 @@ function onCreate(activity, rootView)
     recyclerView:setLayoutManager(linearManager)
     rootView:addView(recyclerView)
 
+    -- The function createProxy returns a java Object reference that can be used as an implementation of the given interface.
+   -- createProxy receives a string that contain the names of the interfaces to be implemented, separated by a comma(,),
+    --and a lua object that is the interface implementation.
     -- 这里之所以是自己写一个接口去代理，是因为RecyclerView.Adapter 是一个抽象类，不是接口，无法直接用代理类
     --类去创建，所以自己封装一层接口去实现
     local adapter = luajava.createProxy("com.example.zhangpeng.androidlua.UI.recyclerview.LuaRecyclerAdapter", rec_adapter)
+    --错误写法
     --local adapter = luajava.createProxy("android.support.v7.widget.RecyclerView$Adapter", rec_adapter)
     recyclerView:setAdapter(adapter)
 end

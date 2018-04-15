@@ -2,13 +2,12 @@ package com.example.zhangpeng.androidlua.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.zhangpeng.androidlua.R;
-import com.example.zhangpeng.androidlua.UI.recyclerview.RecyclerViewActivity;
 import com.example.zhangpeng.androidlua.luajava.LuaJavaHelper;
+import com.example.zhangpeng.androidlua.luajava.LuaUtil;
 
 import org.keplerproject.luajava.LuaState;
 
@@ -17,6 +16,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private LuaJavaHelper luaJavaHelper;
     private Button btnCreateView;
     private Button btnRecyclerView;
+    private Button btnAndroidLua;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +38,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void initView(){
         btnCreateView = (Button) findViewById(R.id.btn_create_view);
         btnRecyclerView = (Button) findViewById(R.id.btn_recyclerView);
+        btnAndroidLua = (Button) findViewById(R.id.btn_android_lua);
+
     }
 
     protected void initListener(){
         btnCreateView.setOnClickListener(this);
         btnRecyclerView.setOnClickListener(this);
+        btnAndroidLua.setOnClickListener(this);
     }
 
 
@@ -55,6 +58,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn_recyclerView :
                 startRecyclerVIewActivity();
+                break;
+            case R.id.btn_android_lua :
+                Intent intent=new Intent(MainActivity.this,AndroidLuaActivity.class);
+                startActivity(intent);
+                break;
+            default:
                 break;
         }
     }

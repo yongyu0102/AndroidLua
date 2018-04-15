@@ -1,4 +1,4 @@
-package com.example.zhangpeng.androidlua.UI.recyclerview;
+package com.example.zhangpeng.androidlua.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 
 
 import com.example.zhangpeng.androidlua.R;
+import com.example.zhangpeng.androidlua.luajava.LuaUtil;
+import com.example.zhangpeng.androidlua.luajava.LuaJavaHelper;
 
 import org.keplerproject.luajava.LuaState;
-import org.keplerproject.luajava.LuaStateFactory;
+
 /**
  * description:
  * author：pz
@@ -23,9 +25,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
-        luaState = LuaStateFactory.newLuaState();
-        luaState.openLibs();
-        luaState.LdoString(LuaUtils.loadAssets(this, "RecyclerViewActivity.lua"));
+        LuaJavaHelper luaJavaHelper = new LuaJavaHelper();
+        luaState=luaJavaHelper.getLuaState();
+        luaState.LdoString(LuaUtil.loadAssets(this, "RecyclerViewActivity.lua"));
 
         luaState.getGlobal( "onCreate");
         luaState.pushJavaObject(this);

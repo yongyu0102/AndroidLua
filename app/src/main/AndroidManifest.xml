@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.CreateViewAndAnimationActivity" />
-        <activity android:name=".UI.recyclerview.RecyclerViewActivity"/>
+        <activity android:name=".UI.RecyclerViewActivity" />
+        <activity android:name=".UI.AndroidLuaActivity"></activity>
     </application>
 
 </manifest>

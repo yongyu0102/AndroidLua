@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.zhangpeng.androidlua.luajava.LuaUtil;
 import com.example.zhangpeng.androidlua.R;
 import com.example.zhangpeng.androidlua.luajava.LuaJavaHelper;
 
